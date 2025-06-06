@@ -1,38 +1,32 @@
-.App {
-  text-align: center;
+body {
+  background-color: #000;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar a.nav-link {
+  color: white !important;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar a.nav-link:hover {
+  color: #17d4d4 !important;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.homepage-contact-section {
+  display: flex;
+  background-color: #000;
+  height: 500px;
+  overflow: hidden;
+}
+
+.map-container {
+  flex: 1;
+}
+
+.form-container {
+  flex: 1;
+  background-color: #000;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
