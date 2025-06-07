@@ -511,3 +511,65 @@ body {
 .send-btn:hover {
   color: #ffd700;
 }
+/* Centered popup overlay */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+/* Popup box styling with neon blue border */
+.popup-box {
+  background-color: #121212;
+  border: 2px solid #00f0ff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.7);
+  text-align: center;
+  animation: fadeInScale 0.3s ease-in-out;
+  max-width: 300px;
+  color: #fff;
+}
+
+/* Blue success icon */
+.success-icon {
+  color: #00f0ff;
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+/* Blue Close button */
+.popup-close-btn {
+  margin-top: 15px;
+  padding: 8px 16px;
+  border: none;
+  background: #00f0ff;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+
+.popup-close-btn:hover {
+  background: #00c8e6;
+}
+
+/* Animation */
+@keyframes fadeInScale {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

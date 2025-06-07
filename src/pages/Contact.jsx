@@ -1,8 +1,28 @@
-import React from 'react';
-import '../styles/main.css'; // Make sure your styles are in this file
-import '@fortawesome/fontawesome-free/css/all.min.css'; // Font Awesome
+// src/pages/Contact.jsx
+import React, { useState } from 'react';
+import '../styles/main.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Contact = () => {
+  const [topic, setTopic] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setShowPopup(true);
+
+    // Clear form fields after popup
+    setTimeout(() => {
+      setTopic('');
+      setName('');
+      setEmail('');
+      setMessage('');
+    }, 1000);
+  };
+
   return (
     <div className="contact-container">
       <div className="contact-left">
@@ -30,26 +50,36 @@ const Contact = () => {
       </div>
 
       <div className="contact-right">
-        <form className="contact-form">
+        <form className="contact-form" onSubmit={handleSubmit}>
           <label htmlFor="topic">Topic</label>
-          <select id="topic" name="topic">
+          <select id="topic" value={topic} onChange={(e) => setTopic(e.target.value)}>
             <option value="">select a topic</option>
             <option value="support">Support</option>
             <option value="inquiry">General Inquiry</option>
           </select>
 
           <label htmlFor="name">Name</label>
-          <input type="text" id="name" placeholder="johndoe" />
+          <input type="text" id="name" placeholder="johndoe" value={name} onChange={(e) => setName(e.target.value)} />
 
           <label htmlFor="email">Email</label>
-          <input type="email" id="email" placeholder="name@provider.com" />
+          <input type="email" id="email" placeholder="name@provider.com" value={email} onChange={(e) => setEmail(e.target.value)} />
 
           <label htmlFor="message">Message</label>
-          <textarea id="message" placeholder="Type your Message...."></textarea>
+          <textarea id="message" placeholder="Type your Message...." value={message} onChange={(e) => setMessage(e.target.value)} />
 
           <button type="submit" className="submit-btn">Submit query</button>
         </form>
       </div>
+
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <i className="fas fa-check-circle success-icon"></i>
+            <p>Your query is submitted!</p>
+            <button className="popup-close-btn" onClick={() => setShowPopup(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

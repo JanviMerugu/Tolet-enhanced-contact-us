@@ -1,8 +1,27 @@
 // src/pages/Home.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/main.css';
 
 const Home = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [message, setMessage] = useState('');
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setShowPopup(true);
+
+    // Clear form fields after popup
+    setTimeout(() => {
+      setName('');
+      setEmail('');
+      setPhone('');
+      setMessage('');
+    }, 1000);
+  };
+
   return (
     <div className="home-container">
       <div className="contact-section">
@@ -18,16 +37,28 @@ const Home = () => {
 
         <div className="form-container">
           <h2 className="form-heading">GET IN TOUCH</h2>
-          <p className="form-subheading">Have some questions? <br />Feel free to ask them anytime.</p>
-          <form className="contact-form">
-            <input type="text" placeholder="Name" required />
-            <input type="email" placeholder="Email" required />
-            <input type="tel" placeholder="Phone" required />
-            <textarea placeholder="Message" rows="4" required></textarea>
+          <p className="form-subheading">
+            Have some questions? <br /> Feel free to ask them anytime.
+          </p>
+          <form className="contact-form" onSubmit={handleSubmit}>
+            <input type="text" placeholder="Name" required value={name} onChange={(e) => setName(e.target.value)} />
+            <input type="email" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input type="tel" placeholder="Phone" required value={phone} onChange={(e) => setPhone(e.target.value)} />
+            <textarea placeholder="Message" rows="4" required value={message} onChange={(e) => setMessage(e.target.value)} />
             <button type="submit" className="send-btn">Send Message →</button>
           </form>
         </div>
       </div>
+
+      {showPopup && (
+        <div className="popup-overlay">
+          <div className="popup-box">
+            <i className="fas fa-check-circle success-icon"></i>
+            <p>Your query is submitted!</p>
+            <button className="popup-close-btn" onClick={() => setShowPopup(false)}>Close</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
