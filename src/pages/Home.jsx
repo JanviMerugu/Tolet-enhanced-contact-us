@@ -1,5 +1,5 @@
-// src/pages/Home.jsx
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../styles/main.css';
 
 const Home = () => {
@@ -9,17 +9,26 @@ const Home = () => {
   const [message, setMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setShowPopup(true);
 
-    // Clear form fields after popup
-    setTimeout(() => {
+    try {
+      await axios.post('https://toletuscontactus.onrender.com/contact', {
+        name,
+        email,
+        phone,
+        topic: 'general',
+        message
+      });
+
+      setShowPopup(true);
       setName('');
       setEmail('');
       setPhone('');
       setMessage('');
-    }, 1000);
+    } catch (error) {
+      console.error('Submission failed:', error);
+    }
   };
 
   return (
@@ -28,7 +37,7 @@ const Home = () => {
         <div className="map-container">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.192116529289!2d78.2467!3d17.5007!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcbf48f3f1b541d%3A0xf89f01fd20295c3f!2sBheemadevarpalle%2C%20Telangana!5e0!3m2!1sen!2sin!4v1717643436954!5m2!1sen!2sin"
-            allowFullScreen=""
+            allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             title="ToLet Globe Location"

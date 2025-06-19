@@ -1,5 +1,5 @@
-// src/pages/Contact.jsx
 import React, { useState } from 'react';
+import axios from 'axios';
 import '../styles/main.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
@@ -7,20 +7,31 @@ const Contact = () => {
   const [topic, setTopic] = useState('');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [message, setMessage] = useState('');
   const [showPopup, setShowPopup] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setShowPopup(true);
 
-    // Clear form fields after popup
-    setTimeout(() => {
+    try {
+      await axios.post('https://toletuscontactus.onrender.com/contact', {
+        name,
+        email,
+        phone,
+        topic,
+        message
+      });
+
+      setShowPopup(true);
       setTopic('');
       setName('');
       setEmail('');
+      setPhone('');
       setMessage('');
-    }, 1000);
+    } catch (error) {
+      console.error('Submission error:', error);
+    }
   };
 
   return (
@@ -52,22 +63,25 @@ const Contact = () => {
       <div className="contact-right">
         <form className="contact-form" onSubmit={handleSubmit}>
           <label htmlFor="topic">Topic</label>
-          <select id="topic" value={topic} onChange={(e) => setTopic(e.target.value)}>
-            <option value="">select a topic</option>
+          <select id="topic" value={topic} onChange={(e) => setTopic(e.target.value)} required>
+            <option value="">Select a topic</option>
             <option value="support">Support</option>
             <option value="inquiry">General Inquiry</option>
           </select>
 
           <label htmlFor="name">Name</label>
-          <input type="text" id="name" placeholder="johndoe" value={name} onChange={(e) => setName(e.target.value)} />
+          <input type="text" id="name" placeholder="johndoe" required value={name} onChange={(e) => setName(e.target.value)} />
 
           <label htmlFor="email">Email</label>
-          <input type="email" id="email" placeholder="name@provider.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+          <input type="email" id="email" placeholder="name@provider.com" required value={email} onChange={(e) => setEmail(e.target.value)} />
+
+          <label htmlFor="phone">Phone</label>
+          <input type="tel" id="phone" placeholder="9876543210" required value={phone} onChange={(e) => setPhone(e.target.value)} />
 
           <label htmlFor="message">Message</label>
-          <textarea id="message" placeholder="Type your Message...." value={message} onChange={(e) => setMessage(e.target.value)} />
+          <textarea id="message" placeholder="Type your Message...." required value={message} onChange={(e) => setMessage(e.target.value)} />
 
-          <button type="submit" className="submit-btn">Submit query</button>
+          <button type="submit" className="submit-btn">Submit Query</button>
         </form>
       </div>
 
